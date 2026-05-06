@@ -1,0 +1,186 @@
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 28px;
+	height: 64px;
+	background: rgba(7, 14, 34, 0.9);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+	backdrop-filter: blur(20px);
+	position: sticky;
+	top: 0;
+	z-index: 100;
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	text-decoration: none;
+}
+
+.logoIcon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	background: var(--accent);
+	border-radius: 8px;
+	font-size: 12px;
+	color: white;
+	box-shadow: 0 0 16px var(--accent-glow);
+}
+
+.logoText {
+	font-family: var(--font-display);
+	font-size: 22px;
+	letter-spacing: 2px;
+	color: var(--text-primary);
+}
+
+/* Auth nav */
+.authNav {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.navLink {
+	padding: 6px 14px;
+	border-radius: var(--radius-sm);
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--text-secondary);
+	text-decoration: none;
+	transition: color var(--transition), background var(--transition);
+}
+
+.navLink:hover {
+	color: var(--text-primary);
+	background: rgba(255, 255, 255, 0.05);
+}
+
+.navLinkActive {
+	color: var(--text-primary);
+	background: rgba(37, 99, 235, 0.15);
+}
+
+.userMenu {
+	position: relative;
+	margin-left: 8px;
+}
+
+.userBtn {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	cursor: pointer;
+	padding: 6px 12px;
+	border-radius: var(--radius-md);
+	background: transparent;
+	transition: background var(--transition);
+}
+
+.userBtn:hover {
+	background: rgba(255, 255, 255, 0.05);
+}
+
+.avatar {
+	width: 32px;
+	height: 32px;
+	background: var(--blue-600);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 700;
+	font-size: 14px;
+	color: white;
+}
+
+.username {
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--text-primary);
+}
+
+.chevron {
+	font-size: 9px;
+	color: var(--text-muted);
+}
+
+.dropdown {
+	position: absolute;
+	right: 0;
+	top: calc(100% + 8px);
+	background: var(--surface-2);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: var(--radius-md);
+	padding: 8px;
+	min-width: 200px;
+	box-shadow: var(--shadow-card);
+	animation: scaleIn 0.2s ease both;
+	transform-origin: top right;
+}
+
+.dropEmail {
+	font-size: 12px;
+	color: var(--text-muted);
+	padding: 8px 10px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+	margin-bottom: 6px;
+}
+
+.logoutBtn {
+	width: 100%;
+	text-align: left;
+	padding: 9px 10px;
+	border-radius: var(--radius-sm);
+	background: transparent;
+	color: #f87171;
+	font-size: 14px;
+	transition: background var(--transition);
+}
+
+.logoutBtn:hover {
+	background: rgba(220, 38, 38, 0.1);
+}
+
+/* Guest nav */
+.guestNav {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.loginBtn {
+	padding: 8px 18px;
+	border-radius: var(--radius-md);
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--text-secondary);
+	text-decoration: none;
+	transition: color var(--transition);
+}
+
+.loginBtn:hover {
+	color: var(--text-primary);
+}
+
+.registerBtn {
+	padding: 8px 20px;
+	border-radius: var(--radius-md);
+	font-size: 14px;
+	font-weight: 600;
+	background: var(--accent);
+	color: white;
+	text-decoration: none;
+	transition: background var(--transition), box-shadow var(--transition);
+	box-shadow: 0 0 16px var(--accent-glow);
+}
+
+.registerBtn:hover {
+	background: var(--accent-hover);
+	box-shadow: 0 0 24px var(--accent-glow);
+}
