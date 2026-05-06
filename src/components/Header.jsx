@@ -36,11 +36,7 @@ export default function Header() {
 					</NavLink>
 
 					<div className={styles.userMenu}>
-						<button
-							type='button'
-							className={styles.userBtn}
-							onClick={() => setMenuOpen(!menuOpen)}
-						>
+						<button type='button' className={styles.userBtn} onClick={() => setMenuOpen(!menuOpen)}>
 							<div className={styles.avatar}>{user.username?.[0]?.toUpperCase()}</div>
 							<span className={styles.username}>{user.username}</span>
 							<span className={styles.chevron}>{menuOpen ? '▲' : '▼'}</span>
