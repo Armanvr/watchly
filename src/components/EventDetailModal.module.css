@@ -1,0 +1,316 @@
+.overlay {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.8);
+	backdrop-filter: blur(8px);
+	z-index: 200;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+}
+
+.modal {
+	background: var(--surface-1);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: var(--radius-xl);
+	width: 100%;
+	max-width: 480px;
+	max-height: 90vh;
+	overflow-y: auto;
+	box-shadow: var(--shadow-modal);
+	position: relative;
+}
+
+/* Backdrop image */
+.backdrop {
+	position: relative;
+	height: 160px;
+	overflow: hidden;
+	border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+.backdrop img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.backdropGradient {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to bottom, transparent 30%, var(--surface-1));
+}
+
+.backdropEmpty {
+	height: 80px;
+	border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+/* Close button */
+.close {
+	position: absolute;
+	top: 14px;
+	right: 14px;
+	z-index: 10;
+	width: 32px;
+	height: 32px;
+	background: rgba(0, 0, 0, 0.5);
+	border-radius: var(--radius-sm);
+	color: var(--text-secondary);
+	font-size: 14px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all var(--transition);
+	backdrop-filter: blur(4px);
+}
+
+.close:hover {
+	background: rgba(0, 0, 0, 0.8);
+	color: var(--text-primary);
+}
+
+/* Main content */
+.content {
+	padding: 0 24px 24px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+/* Hero: poster + title */
+.hero {
+	display: flex;
+	gap: 16px;
+	align-items: flex-end;
+	margin-top: -40px;
+}
+
+.poster {
+	width: 80px;
+	height: 120px;
+	object-fit: cover;
+	border-radius: var(--radius-md);
+	border: 2px solid var(--surface-1);
+	flex-shrink: 0;
+	box-shadow: var(--shadow-card);
+}
+
+.posterFallback {
+	width: 80px;
+	height: 120px;
+	background: var(--surface-3);
+	border-radius: var(--radius-md);
+	border: 2px solid var(--surface-1);
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 28px;
+}
+
+.heroInfo {
+	flex: 1;
+	min-width: 0;
+	padding-bottom: 4px;
+}
+
+.typeBadge {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	font-size: 10px;
+	font-weight: 700;
+	padding: 3px 8px;
+	border-radius: 20px;
+	color: white;
+	letter-spacing: 0.3px;
+	margin-bottom: 6px;
+}
+
+.typeBadge svg {
+	width: 12px;
+	height: 12px;
+}
+
+.title {
+	font-family: var(--font-display);
+	font-size: 22px;
+	letter-spacing: 0.5px;
+	color: var(--text-primary);
+	line-height: 1.2;
+	margin-bottom: 6px;
+}
+
+.meta {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.meta span {
+	font-size: 12px;
+	color: var(--text-muted);
+}
+
+/* Watch info grid */
+.watchInfo {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+	background: rgba(255, 255, 255, 0.03);
+	border: 1px solid rgba(255, 255, 255, 0.07);
+	border-radius: var(--radius-md);
+	padding: 14px 16px;
+}
+
+.watchInfoItem {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+}
+
+.watchInfoLabel {
+	font-size: 10px;
+	font-weight: 600;
+	color: var(--text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.6px;
+}
+
+.watchInfoValue {
+	font-size: 13px;
+	color: var(--text-primary);
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.watchInfoValue svg {
+	width: 14px;
+	height: 14px;
+	flex-shrink: 0;
+}
+
+.statusBadge {
+	font-size: 12px;
+	font-weight: 600;
+	padding: 3px 10px;
+	border-radius: 20px;
+	display: inline-block;
+}
+
+/* Overview */
+.overview {
+	font-size: 13px;
+	color: var(--text-secondary);
+	line-height: 1.6;
+}
+
+/* Notes */
+.notes {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.notesLabel {
+	font-size: 10px;
+	font-weight: 600;
+	color: var(--text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.6px;
+}
+
+.notes p {
+	font-size: 13px;
+	color: var(--blue-300);
+	font-style: italic;
+	line-height: 1.5;
+}
+
+/* Shared with */
+.sharedRow {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.sharedList {
+	display: flex;
+	gap: 6px;
+	flex-wrap: wrap;
+}
+
+.sharedChip {
+	font-size: 12px;
+	padding: 4px 10px;
+	background: rgba(37, 99, 235, 0.15);
+	border: 1px solid rgba(37, 99, 235, 0.3);
+	border-radius: 20px;
+	color: var(--blue-300);
+}
+
+/* Action buttons */
+.actions {
+	display: flex;
+	gap: 8px;
+	padding-top: 4px;
+}
+
+.actionEdit,
+.actionShare,
+.actionDelete {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	padding: 10px;
+	border-radius: var(--radius-md);
+	font-size: 13px;
+	font-weight: 500;
+	transition: all var(--transition);
+	text-align: center;
+}
+
+.actionEdit svg,
+.actionShare svg,
+.actionDelete svg {
+	width: 15px;
+	height: 15px;
+	flex-shrink: 0;
+}
+
+.actionEdit {
+	background: rgba(37, 99, 235, 0.15);
+	border: 1px solid rgba(37, 99, 235, 0.3);
+	color: var(--blue-400);
+}
+
+.actionEdit:hover {
+	background: rgba(37, 99, 235, 0.25);
+}
+
+.actionShare {
+	background: rgba(255, 255, 255, 0.05);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	color: var(--text-secondary);
+}
+
+.actionShare:hover {
+	background: rgba(255, 255, 255, 0.1);
+	color: var(--text-primary);
+}
+
+.actionDelete {
+	background: rgba(220, 38, 38, 0.1);
+	border: 1px solid rgba(220, 38, 38, 0.25);
+	color: #f87171;
+}
+
+.actionDelete:hover {
+	background: rgba(220, 38, 38, 0.2);
+}

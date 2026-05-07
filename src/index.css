@@ -1,0 +1,184 @@
+:root {
+	--blue-900: #0d1b3e;
+	--blue-800: #112266;
+	--blue-700: #1a3580;
+	--blue-600: #1e429f;
+	--blue-500: #2563eb;
+	--blue-400: #3b82f6;
+	--blue-300: #93c5fd;
+	--blue-100: #dbeafe;
+	--blue-50: #eff6ff;
+
+	--surface-0: #070e22;
+	--surface-1: #0e1a36;
+	--surface-2: #142040;
+	--surface-3: #1a2a55;
+	--surface-card: rgba(20, 32, 64, 0.85);
+
+	--text-primary: #f0f4ff;
+	--text-secondary: #94a3c4;
+	--text-muted: #4a5980;
+
+	--accent: #2563eb;
+	--accent-hover: #3b82f6;
+	--accent-glow: rgba(37, 99, 235, 0.35);
+
+	--movie-color: #2563eb;
+	--tv-color: #7c3aed;
+	--anime-color: #db2777;
+	--planned-color: #2563eb;
+	--watching-color: #d97706;
+	--completed-color: #16a34a;
+	--dropped-color: #dc2626;
+
+	--radius-sm: 6px;
+	--radius-md: 12px;
+	--radius-lg: 18px;
+	--radius-xl: 24px;
+
+	--font-display: "Bebas Neue", sans-serif;
+	--font-body: "DM Sans", sans-serif;
+
+	--transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	--shadow-glow: 0 0 40px rgba(37, 99, 235, 0.2);
+	--shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+	--shadow-modal: 0 24px 80px rgba(0, 0, 0, 0.7);
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 16px;
+}
+
+body {
+	font-family: var(--font-body);
+	background: var(--surface-0);
+	color: var(--text-primary);
+	min-height: 100vh;
+	overflow-x: hidden;
+	background-image:
+		radial-gradient(ellipse 80% 50% at 50% -20%, rgba(37, 99, 235, 0.15) 0%, transparent 60%),
+		radial-gradient(ellipse 40% 30% at 80% 80%, rgba(124, 58, 237, 0.08) 0%, transparent 50%);
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+button {
+	cursor: pointer;
+	font-family: var(--font-body);
+	border: none;
+	outline: none;
+}
+input,
+textarea,
+select {
+	font-family: var(--font-body);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+::-webkit-scrollbar-track {
+	background: var(--surface-1);
+}
+::-webkit-scrollbar-thumb {
+	background: var(--surface-3);
+	border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: var(--blue-600);
+}
+
+/* Animations */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+@keyframes slideIn {
+	from {
+		opacity: 0;
+		transform: translateX(-16px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+@keyframes scaleIn {
+	from {
+		opacity: 0;
+		transform: scale(0.94);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+@keyframes shimmer {
+	0% {
+		background-position: -200% 0;
+	}
+	100% {
+		background-position: 200% 0;
+	}
+}
+@keyframes pulse-glow {
+	0%,
+	100% {
+		box-shadow: 0 0 0 0 var(--accent-glow);
+	}
+	50% {
+		box-shadow: 0 0 20px 6px var(--accent-glow);
+	}
+}
+
+.fade-in {
+	animation: fadeIn 0.4s ease both;
+}
+.scale-in {
+	animation: scaleIn 0.3s ease both;
+}
+
+/* Skeleton loader */
+.skeleton {
+	background: linear-gradient(90deg, var(--surface-2) 25%, var(--surface-3) 50%, var(--surface-2) 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: var(--radius-sm);
+}
+
+/* Icon sizing */
+.size-6 {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+
+/* Utility */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}

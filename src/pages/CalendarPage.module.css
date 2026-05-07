@@ -1,0 +1,209 @@
+.layout {
+	height: 100vh;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+.main {
+	flex: 1;
+	display: grid;
+	grid-template-columns: 380px 1fr;
+	gap: 20px;
+	padding: 24px;
+	max-width: 1400px;
+	margin: 0 auto;
+	width: 100%;
+	overflow: hidden;
+	align-items: start;
+}
+
+/* Calendar Section */
+.calSection {
+	background: var(--surface-card);
+	border: 1px solid rgba(255, 255, 255, 0.07);
+	border-radius: var(--radius-xl);
+	padding: 24px;
+	height: fit-content;
+	position: sticky;
+	top: 24px;
+	backdrop-filter: blur(20px);
+	animation: fadeIn 0.4s ease both;
+}
+
+.monthNav {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 20px;
+}
+
+.monthTitle {
+	flex: 1;
+	font-family: var(--font-display);
+	font-size: 22px;
+	letter-spacing: 1px;
+	text-transform: capitalize;
+	color: var(--text-primary);
+}
+
+.navBtn {
+	width: 34px;
+	height: 34px;
+	background: rgba(255, 255, 255, 0.05);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: var(--radius-sm);
+	color: var(--text-secondary);
+	font-size: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all var(--transition);
+}
+
+.navBtn:hover {
+	background: var(--surface-3);
+	color: var(--text-primary);
+}
+
+.todayBtn {
+	padding: 6px 14px;
+	background: rgba(37, 99, 235, 0.15);
+	border: 1px solid rgba(37, 99, 235, 0.35);
+	border-radius: var(--radius-sm);
+	color: var(--blue-400);
+	font-size: 13px;
+	font-weight: 500;
+	transition: all var(--transition);
+}
+
+.todayBtn:hover {
+	background: rgba(37, 99, 235, 0.25);
+}
+
+.dayLabels {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	margin-bottom: 8px;
+	text-align: center;
+}
+
+.dayLabels span {
+	font-size: 11px;
+	font-weight: 600;
+	color: var(--text-muted);
+	padding: 4px 0;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	gap: 3px;
+	transition: opacity 0.2s;
+}
+
+.emptyCell {
+	aspect-ratio: 1;
+}
+
+.dayCell {
+	aspect-ratio: 1;
+	background: transparent;
+	border: 1px solid transparent;
+	border-radius: var(--radius-sm);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 3px;
+	transition: all var(--transition);
+	color: var(--text-secondary);
+	font-size: 13px;
+	font-weight: 400;
+	cursor: pointer;
+	padding: 2px;
+}
+
+.dayCell:hover {
+	background: rgba(255, 255, 255, 0.06);
+	color: var(--text-primary);
+}
+
+.dayCell.today .dayNum {
+	background: var(--accent);
+	color: white;
+	border-radius: 50%;
+	width: 26px;
+	height: 26px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 600;
+	box-shadow: 0 0 12px var(--accent-glow);
+}
+
+.dayCell.selected {
+	background: rgba(37, 99, 235, 0.15);
+	border-color: rgba(37, 99, 235, 0.4);
+	color: var(--text-primary);
+}
+
+.dayNum {
+	font-size: 13px;
+	line-height: 1;
+}
+
+.dots {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.dot {
+	width: 5px;
+	height: 5px;
+	border-radius: 50%;
+	display: block;
+}
+
+.dotMore {
+	font-size: 9px;
+	color: var(--text-muted);
+}
+
+.legend {
+	display: flex;
+	gap: 16px;
+	margin-top: 16px;
+	padding-top: 16px;
+	border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.legend span {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 12px;
+	color: var(--text-muted);
+}
+
+.legend em {
+	display: block;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	font-style: normal;
+}
+
+@media (max-width: 900px) {
+	.main {
+		grid-template-columns: 1fr;
+	}
+	.calSection {
+		position: static;
+	}
+}

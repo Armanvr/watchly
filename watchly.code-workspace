@@ -1,0 +1,38 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"editor.defaultFormatter": "biomejs.biome",
+		"editor.formatOnSave": true,
+		"[javascript][typescript][typescriptreact][css]": {
+			"editor.codeActionsOnSave": {
+				"quickfix.biome": "explicit",
+				"source.organizeImports.biome": "explicit"
+			}
+		},
+		"biome.enabled": true,
+		"files.trimTrailingWhitespace": true,
+		"search.exclude": {
+			"**/node_modules": true
+		},
+		"editor.rulers": [100],
+		"editor.tabSize": 4,
+		"makefile.extensionOutputFolder": "./.vscode"
+	},
+	"extensions": {
+		"recommendations": ["biomejs.biome"]
+	},
+	"launch": {
+		"configurations": [
+			{
+				"type": "node",
+				"request": "attach",
+				"name": "Node: Nodemon",
+				"restart": true
+			}
+		]
+	}
+}
