@@ -186,3 +186,24 @@
 .switch a:hover {
 	color: var(--blue-300);
 }
+
+@media (max-width: 520px) {
+	.page {
+		align-items: stretch;
+		padding: 14px;
+	}
+
+	.card {
+		align-self: center;
+		border-radius: var(--radius-lg);
+		padding: 28px 22px;
+	}
+
+	.logo {
+		margin-bottom: 24px;
+	}
+
+	.title {
+		font-size: 28px;
+	}
+}

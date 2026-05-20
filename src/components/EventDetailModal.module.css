@@ -314,3 +314,37 @@
 .actionDelete:hover {
 	background: rgba(220, 38, 38, 0.2);
 }
+
+@media (max-width: 560px) {
+	.overlay {
+		align-items: flex-end;
+		padding: 0;
+	}
+
+	.modal {
+		max-width: none;
+		max-height: 94vh;
+		border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+		border-right: 0;
+		border-bottom: 0;
+		border-left: 0;
+	}
+
+	.backdrop,
+	.backdropEmpty {
+		border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+	}
+
+	.content {
+		padding: 0 16px 18px;
+	}
+
+	.hero {
+		gap: 12px;
+	}
+
+	.actions {
+		display: grid;
+		grid-template-columns: 1fr;
+	}
+}

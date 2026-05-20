@@ -1,12 +1,12 @@
 import { format, isToday } from 'date-fns'
 import { fr } from 'date-fns/locale'
 import { useEffect, useRef, useState } from 'react'
-import api from '../utils/api'
 import Clock from '../icons/Clock'
 import Duration from '../icons/Duration'
 import Share from '../icons/Share'
-import EventDetailModal from './EventDetailModal'
+import api from '../utils/api'
 import styles from './DayPanel.module.css'
+import EventDetailModal from './EventDetailModal'
 import ShareModal from './ShareModal'
 
 const TMDB_IMG = import.meta.env.VITE_TMDB_IMAGE_URL || 'https://image.tmdb.org/t/p'
@@ -77,17 +77,80 @@ export default function DayPanel({ day, events, onAdd, onEdit, onDelete, onRefre
 							: `${events.length} visionnage${events.length > 1 ? 's' : ''}`}
 					</span>
 				</div>
-				<button className={styles.addBtn} onClick={onAdd}>
+				<button type='button' className={styles.addBtn} onClick={onAdd}>
 					<span>+</span> Ajouter
 				</button>
+			</div>
+
+			<div className={styles.mobileList}>
+				{events.length === 0 ? (
+					<div className={styles.empty}>
+						<div className={styles.emptyIcon}>+</div>
+						<p>Rien de prévu pour cette journée</p>
+						<button type='button' className={styles.emptyAdd} onClick={onAdd}>
+							Ajouter un visionnage
+						</button>
+					</div>
+				) : (
+					events.map((ev) => {
+						const typeColor =
+							ev.mediaType === 'movie'
+								? 'var(--movie-color)'
+								: ev.mediaType === 'anime'
+									? 'var(--anime-color)'
+									: 'var(--tv-color)'
+
+						return (
+							<button
+								key={ev._id}
+								type='button'
+								className={styles.listCard}
+								style={{ borderLeftColor: typeColor }}
+								onClick={() => setDetail(ev)}
+							>
+								{ev.posterPath ? (
+									<img
+										src={`${TMDB_IMG}/w92${ev.posterPath}`}
+										alt={ev.title}
+										className={styles.cardPoster}
+										loading='lazy'
+									/>
+								) : (
+									<div className={styles.cardPosterFallback}>+</div>
+								)}
+								<div className={styles.cardInfo}>
+									<div className={styles.cardTitle}>{ev.title}</div>
+									<div className={styles.cardMeta}>
+										<span>
+											<Clock /> {ev.watchTime}
+										</span>
+										<span>
+											<Duration /> {ev.duration} min
+										</span>
+										{ev.episode && <span>{ev.episode}</span>}
+									</div>
+									<span className={styles.statusPill} data-status={ev.status}>
+										{ev.status === 'completed'
+											? 'Vu'
+											: ev.status === 'watching'
+												? 'En cours'
+												: ev.status === 'dropped'
+													? 'Abandonné'
+													: 'Prévu'}
+									</span>
+								</div>
+							</button>
+						)
+					})
+				)}
 			</div>
 
 			<div className={styles.timelineScroll} ref={scrollRef}>
 				{events.length === 0 ? (
 					<div className={styles.empty}>
-						<div className={styles.emptyIcon}>🍿</div>
+						<div className={styles.emptyIcon}>+</div>
 						<p>Rien de prévu pour cette journée</p>
-						<button className={styles.emptyAdd} onClick={onAdd}>
+						<button type='button' className={styles.emptyAdd} onClick={onAdd}>
 							Ajouter un visionnage
 						</button>
 					</div>
@@ -132,8 +195,18 @@ export default function DayPanel({ day, events, onAdd, onEdit, onDelete, onRefre
 											? 'var(--anime-color)'
 											: 'var(--tv-color)'
 
+								const statusLabel =
+									ev.status === 'completed'
+										? 'Vu'
+										: ev.status === 'watching'
+											? 'En cours'
+											: ev.status === 'dropped'
+												? 'Abandonné'
+												: 'Prévu'
+
 								return (
-									<div
+									<button
+										type='button'
 										key={ev._id}
 										className={styles.timelineCard}
 										style={{ top: `${top}px`, height: `${height}px`, borderLeftColor: typeColor }}
@@ -158,35 +231,21 @@ export default function DayPanel({ day, events, onAdd, onEdit, onDelete, onRefre
 										<div className={styles.cardInfo}>
 											<div className={styles.cardTitle}>{ev.title}</div>
 											<div className={styles.cardMeta}>
-												<span><Clock /> {ev.watchTime}</span>
-												<span><Duration /> {ev.duration} min</span>
+												<span>
+													<Clock /> {ev.watchTime}
+												</span>
+												<span>
+													<Duration /> {ev.duration} min
+												</span>
 												{ev.episode && <span>📍 {ev.episode}</span>}
 											</div>
 											{height >= 110 && (
-												<select
-													className={styles.statusSelect}
-													value={ev.status}
-													onChange={(e) => {
-														e.stopPropagation()
-														handleStatusChange(ev, e.target.value)
-													}}
-													onClick={(e) => e.stopPropagation()}
-													data-status={ev.status}
-												>
-													{[
-														['planned', 'Prévu'],
-														['watching', 'En cours'],
-														['completed', 'Terminé'],
-														['dropped', 'Abandonné'],
-													].map(([k, v]) => (
-														<option key={k} value={k}>
-															{v}
-														</option>
-													))}
-												</select>
+												<span className={styles.statusPill} data-status={ev.status}>
+													{statusLabel}
+												</span>
 											)}
 										</div>
-									</div>
+									</button>
 								)
 							})}
 						</div>

@@ -90,4 +90,33 @@ router.get('/details/:type/:id', async (req, res) => {
 	}
 })
 
+// GET /api/media/tv/:id/season/:seasonNumber
+router.get('/tv/:id/season/:seasonNumber', async (req, res) => {
+	try {
+		const { id, seasonNumber } = req.params
+		const data = await tmdb(`/tv/${id}/season/${seasonNumber}`)
+
+		res.json({
+			id: data.id,
+			name: data.name,
+			seasonNumber: data.season_number,
+			overview: data.overview,
+			posterPath: data.poster_path,
+			episodes: (data.episodes || []).map((episode) => ({
+				id: episode.id,
+				name: episode.name,
+				episodeNumber: episode.episode_number,
+				seasonNumber: episode.season_number,
+				overview: episode.overview,
+				airDate: episode.air_date,
+				runtime: episode.runtime,
+				stillPath: episode.still_path,
+				voteAverage: episode.vote_average,
+			})),
+		})
+	} catch (err) {
+		res.status(500).json({ message: err.message })
+	}
+})
+
 export default router

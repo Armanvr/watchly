@@ -83,7 +83,10 @@
 	background: var(--accent);
 	color: white;
 	text-decoration: none;
-	transition: background var(--transition), box-shadow var(--transition), transform var(--transition);
+	transition:
+		background var(--transition),
+		box-shadow var(--transition),
+		transform var(--transition);
 	box-shadow: 0 0 24px var(--accent-glow);
 }
 
@@ -104,7 +107,9 @@
 	color: var(--text-primary);
 	text-decoration: none;
 	border: 1px solid rgba(255, 255, 255, 0.12);
-	transition: background var(--transition), border-color var(--transition);
+	transition:
+		background var(--transition),
+		border-color var(--transition);
 	backdrop-filter: blur(8px);
 }
 
@@ -175,7 +180,9 @@
 	overflow: hidden;
 	position: relative;
 	cursor: default;
-	transition: transform var(--transition), box-shadow var(--transition);
+	transition:
+		transform var(--transition),
+		box-shadow var(--transition);
 	background: var(--surface-2);
 }
 
@@ -252,7 +259,10 @@
 	border: 1px solid rgba(255, 255, 255, 0.07);
 	border-radius: var(--radius-lg);
 	padding: 32px 28px;
-	transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+	transition:
+		border-color var(--transition),
+		transform var(--transition),
+		box-shadow var(--transition);
 	animation: fadeIn 0.5s ease both;
 }
 
@@ -287,12 +297,73 @@
 }
 
 @media (max-width: 768px) {
+	.hero {
+		min-height: 82vh;
+		align-items: flex-end;
+	}
+
+	.heroOverlay {
+		background:
+			linear-gradient(to top, rgba(7, 14, 34, 0.96) 0%, rgba(7, 14, 34, 0.5) 75%),
+			linear-gradient(to bottom, rgba(7, 14, 34, 0.2), rgba(7, 14, 34, 0));
+	}
+
 	.heroContent {
-		padding: 60px 24px;
+		padding: 52px 20px 34px;
+	}
+
+	.heroEyebrow {
+		font-size: 11px;
+		letter-spacing: 2px;
+		margin-bottom: 10px;
+	}
+
+	.heroTitle {
+		font-size: 64px;
+		margin-bottom: 14px;
+	}
+
+	.heroSub {
+		font-size: 15px;
+		line-height: 1.5;
+		margin-bottom: 22px;
+	}
+
+	.heroCtas {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 10px;
+	}
+
+	.ctaPrimary,
+	.ctaSecondary {
+		justify-content: center;
+		padding: 13px 18px;
 	}
 
 	.trending,
 	.features {
-		padding: 60px 24px;
+		padding: 42px 16px;
+	}
+
+	.sectionHeader {
+		text-align: left;
+		margin-bottom: 24px;
+	}
+
+	.posterCard,
+	.posterSkeleton {
+		width: 112px;
+		height: 168px;
+	}
+
+	.featureGrid {
+		grid-template-columns: 1fr;
+		gap: 12px;
+		margin-bottom: 28px;
+	}
+
+	.featureCard {
+		padding: 20px;
 	}
 }

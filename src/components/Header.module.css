@@ -53,7 +53,9 @@
 	font-weight: 500;
 	color: var(--text-secondary);
 	text-decoration: none;
-	transition: color var(--transition), background var(--transition);
+	transition:
+		color var(--transition),
+		background var(--transition);
 }
 
 .navLink:hover {
@@ -176,11 +178,68 @@
 	background: var(--accent);
 	color: white;
 	text-decoration: none;
-	transition: background var(--transition), box-shadow var(--transition);
+	transition:
+		background var(--transition),
+		box-shadow var(--transition);
 	box-shadow: 0 0 16px var(--accent-glow);
 }
 
 .registerBtn:hover {
 	background: var(--accent-hover);
 	box-shadow: 0 0 24px var(--accent-glow);
+}
+
+@media (max-width: 680px) {
+	.header {
+		height: auto;
+		min-height: 58px;
+		padding: 10px 14px;
+		gap: 10px;
+		align-items: flex-start;
+	}
+
+	.logoText {
+		font-size: 20px;
+	}
+
+	.authNav {
+		flex: 1;
+		justify-content: flex-end;
+		gap: 4px;
+		flex-wrap: wrap;
+	}
+
+	.navLink {
+		padding: 7px 9px;
+		font-size: 12px;
+	}
+
+	.userMenu {
+		margin-left: 0;
+	}
+
+	.userBtn {
+		padding: 4px;
+		gap: 6px;
+	}
+
+	.username,
+	.chevron {
+		display: none;
+	}
+
+	.dropdown {
+		right: 0;
+		min-width: 190px;
+	}
+
+	.guestNav {
+		gap: 6px;
+	}
+
+	.loginBtn,
+	.registerBtn {
+		padding: 8px 10px;
+		font-size: 12px;
+	}
 }

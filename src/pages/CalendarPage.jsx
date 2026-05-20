@@ -1,12 +1,15 @@
 import {
+	addDays,
 	addMonths,
 	eachDayOfInterval,
 	endOfMonth,
 	format,
 	getDay,
 	isSameDay,
+	isSameMonth,
 	isToday,
 	startOfMonth,
+	startOfWeek,
 	subMonths,
 } from 'date-fns'
 import { fr } from 'date-fns/locale'
@@ -14,14 +17,12 @@ import { useCallback, useEffect, useState } from 'react'
 import DayPanel from '../components/DayPanel'
 import EventModal from '../components/EventModal'
 import Header from '../components/Header'
-import { useAuth } from '../context/AuthContext'
 import api from '../utils/api'
 import styles from './CalendarPage.module.css'
 
 const DAYS_FR = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']
 
 export default function CalendarPage() {
-	const { user } = useAuth()
 	const [currentMonth, setCurrentMonth] = useState(new Date())
 	const [selectedDay, setSelectedDay] = useState(new Date())
 	const [events, setEvents] = useState([])
@@ -84,13 +85,18 @@ export default function CalendarPage() {
 		fetchDay()
 	}
 
-	// Build calendar grid
+	const selectDay = (day) => {
+		setSelectedDay(day)
+		if (!isSameMonth(day, currentMonth)) setCurrentMonth(day)
+	}
+
 	const monthStart = startOfMonth(currentMonth)
 	const monthEnd = endOfMonth(currentMonth)
 	const days = eachDayOfInterval({ start: monthStart, end: monthEnd })
-
-	// Offset so Monday = col 0
 	const startOffset = (getDay(monthStart) + 6) % 7
+	const weekStart = startOfWeek(selectedDay, { weekStartsOn: 1 })
+	const compactDays = Array.from({ length: 7 }, (_, index) => addDays(weekStart, index))
+	const emptyCells = Array.from({ length: startOffset }, (_, index) => `${format(monthStart, 'yyyy-MM')}-${index}`)
 
 	const getEventsForDay = (day) => events.filter((ev) => isSameDay(new Date(ev.watchDate), day))
 
@@ -107,16 +113,24 @@ export default function CalendarPage() {
 			<main className={styles.main}>
 				{/* Calendar section */}
 				<section className={styles.calSection}>
-					{/* Month nav */}
 					<div className={styles.monthNav}>
-						<button className={styles.navBtn} onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}>
+						<button
+							type='button'
+							className={styles.navBtn}
+							onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
+						>
 							‹
 						</button>
 						<h2 className={styles.monthTitle}>{format(currentMonth, 'MMMM yyyy', { locale: fr })}</h2>
-						<button className={styles.navBtn} onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}>
+						<button
+							type='button'
+							className={styles.navBtn}
+							onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
+						>
 							›
 						</button>
 						<button
+							type='button'
 							className={styles.todayBtn}
 							onClick={() => {
 								setCurrentMonth(new Date())
@@ -127,18 +141,41 @@ export default function CalendarPage() {
 						</button>
 					</div>
 
-					{/* Day labels */}
+					<div className={styles.compactWeek}>
+						{compactDays.map((day) => {
+							const dayEvs = getEventsForDay(day)
+							const selected = isSameDay(day, selectedDay)
+
+							return (
+								<button
+									type='button'
+									key={day.toString()}
+									className={`${styles.weekDay} ${selected ? styles.weekDayActive : ''}`}
+									onClick={() => selectDay(day)}
+								>
+									<span>{format(day, 'EEE', { locale: fr })}</span>
+									<strong>{format(day, 'd')}</strong>
+									{dayEvs.length > 0 && (
+										<em>
+											{dayEvs.slice(0, 3).map((ev) => (
+												<i key={ev._id} style={{ background: mediaTypeColor(ev.mediaType) }} />
+											))}
+										</em>
+									)}
+								</button>
+							)
+						})}
+					</div>
+
 					<div className={styles.dayLabels}>
 						{DAYS_FR.map((d) => (
 							<span key={d}>{d}</span>
 						))}
 					</div>
 
-					{/* Grid */}
 					<div className={styles.grid} style={{ opacity: loadingMonth ? 0.6 : 1 }}>
-						{/* Empty cells for offset */}
-						{Array.from({ length: startOffset }).map((_, i) => (
-							<div key={`e${i}`} className={styles.emptyCell} />
+						{emptyCells.map((key) => (
+							<div key={key} className={styles.emptyCell} />
 						))}
 
 						{days.map((day) => {
@@ -148,6 +185,7 @@ export default function CalendarPage() {
 
 							return (
 								<button
+									type='button'
 									key={day.toString()}
 									className={[
 										styles.dayCell,
@@ -155,14 +193,14 @@ export default function CalendarPage() {
 										selected ? styles.selected : '',
 										dayEvs.length > 0 ? styles.hasEvents : '',
 									].join(' ')}
-									onClick={() => setSelectedDay(day)}
+									onClick={() => selectDay(day)}
 								>
 									<span className={styles.dayNum}>{format(day, 'd')}</span>
 									{dayEvs.length > 0 && (
 										<div className={styles.dots}>
-											{dayEvs.slice(0, 3).map((ev, i) => (
+											{dayEvs.slice(0, 3).map((ev) => (
 												<span
-													key={i}
+													key={ev._id}
 													className={styles.dot}
 													style={{ background: mediaTypeColor(ev.mediaType) }}
 												/>
@@ -177,7 +215,6 @@ export default function CalendarPage() {
 						})}
 					</div>
 
-					{/* Legend */}
 					<div className={styles.legend}>
 						<span>
 							<em style={{ background: 'var(--movie-color)' }} />

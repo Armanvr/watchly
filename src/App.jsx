@@ -1,11 +1,14 @@
+import { useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
+import AccessGatePage from './pages/AccessGatePage'
 import CalendarPage from './pages/CalendarPage'
 import LandingPage from './pages/LandingPage'
 import LoginPage from './pages/LoginPage'
 import ProfilePage from './pages/ProfilePage'
 import RegisterPage from './pages/RegisterPage'
 import ShareAcceptPage from './pages/ShareAcceptPage'
+import { ACCESS_STORAGE_KEY } from './utils/accessGate'
 
 const Protected = ({ children }) => {
 	const { user, loading } = useAuth()
@@ -33,6 +36,15 @@ const Guest = ({ children }) => {
 }
 
 export default function App() {
+	const [accessGranted, setAccessGranted] = useState(() => localStorage.getItem(ACCESS_STORAGE_KEY) === 'true')
+
+	const grantAccess = () => {
+		localStorage.setItem(ACCESS_STORAGE_KEY, 'true')
+		setAccessGranted(true)
+	}
+
+	if (!accessGranted) return <AccessGatePage onGranted={grantAccess} />
+
 	return (
 		<AuthProvider>
 			<Routes>

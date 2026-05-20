@@ -477,3 +477,54 @@
 	opacity: 0.6;
 	cursor: not-allowed;
 }
+
+@media (max-width: 560px) {
+	.overlay {
+		align-items: flex-end;
+		padding: 0;
+	}
+
+	.modal {
+		max-height: 94vh;
+		border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+		border-right: 0;
+		border-bottom: 0;
+		border-left: 0;
+	}
+
+	.modalHeader {
+		padding: 14px 16px;
+	}
+
+	.searchStep,
+	.formStep {
+		padding: 16px;
+	}
+
+	.typeToggle {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+	}
+
+	.typeBtn,
+	.typeActive {
+		padding: 8px 6px;
+		font-size: 12px;
+		text-align: center;
+	}
+
+	.grid2 {
+		grid-template-columns: 1fr;
+	}
+
+	.formActions {
+		display: grid;
+		grid-template-columns: 1fr;
+	}
+
+	.cancelBtn,
+	.saveBtn {
+		width: 100%;
+		min-height: 44px;
+	}
+}
