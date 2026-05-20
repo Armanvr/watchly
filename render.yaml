@@ -5,8 +5,8 @@ services:
   - type: web
     name: watchly-backend
     runtime: node
-    region: frankfurt          # oregon | singapore | ohio | frankfurt
-    plan: free                 # free | starter | standard
+    region: frankfurt
+    plan: free
     buildCommand: npm install
     startCommand: npm start
     envVars:
@@ -15,29 +15,24 @@ services:
       - key: PORT
         value: 3001
       - key: MONGODB_URI
-        sync: false            # ⚠️  à renseigner dans le dashboard Render
+        sync: false
       - key: JWT_SECRET
-        generateValue: true    # Render génère une valeur sécurisée automatiquement
+        generateValue: true
       - key: JWT_EXPIRES_IN
         value: 7d
       - key: TMDB_API_KEY
-        sync: false            # ⚠️  à renseigner dans le dashboard Render
+        sync: false
       - key: TMDB_BASE_URL
         value: https://api.themoviedb.org/3
       - key: FRONTEND_URL
-        sync: false            # ⚠️  à renseigner après le 1er déploiement frontend
-                               #     ex: https://watchly-frontend.onrender.com
+        sync: false
     healthCheckPath: /api/health
     autoDeploy: true
 
   # ─── Frontend (Vite → static site) ────────────────────────────────────────
-  # Note : VITE_API_URL doit être définie AVANT le build (variables Vite sont
-  # inlinées à la compilation). Renseignez-la dans le dashboard Render après
-  # le 1er déploiement du backend, puis re-deployez le frontend.
   - type: web
     name: watchly-frontend
     runtime: static
-    region: frankfurt
     plan: free
     buildCommand: npm install && npm run build
     staticPublishPath: dist
@@ -45,14 +40,12 @@ services:
       - key: VITE_TMDB_IMAGE_URL
         value: https://image.tmdb.org/t/p
       - key: VITE_API_URL
-        sync: false            # ⚠️  ex: https://watchly-backend.onrender.com/api
+        sync: false
     routes:
-      # SPA fallback — react-router-dom gère le routing côté client
       - type: rewrite
         source: /*
         destination: /index.html
     headers:
-      # Cache long sur les assets Vite (noms hachés, immutables)
       - path: /assets/*
         name: Cache-Control
         value: public, max-age=31536000, immutable
